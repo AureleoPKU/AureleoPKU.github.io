@@ -314,8 +314,8 @@ transition: opacity 1.0s;
   height: 80px;     
   width: auto;
   margin-right: -50px;   /* 调节与标题的距离 */
-  margin-left: 50px;  /* 🔥 图标向左移动一些 */
-  margin-top: -50px;
+  margin-left: 40px;  /* 🔥 图标向左移动一些 */
+  margin-top: -60px;
 }
 
 /* Grid layouts - One, Two, Three columns */

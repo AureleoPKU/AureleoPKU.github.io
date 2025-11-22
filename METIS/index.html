@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model">
+  <meta name="keywords" content="Robotics, dexterous manipulation, vision-language-action model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model
+  </title>
+
+  <!-- <link rel="apple-touch-icon" sizes="57x57"s
+    href="./static/images/cr7_frame5_crop.png" />
+
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png"
+    sizes="196x196" />
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png"
+    sizes="192x192" />
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png" sizes="128x128" />
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="./static/images/cr7_frame5_crop.png" sizes="16x16" />
+
+  <link rel="mask-icon" href="//www-media.stanford.edu/assets/favicon/safari-pinned-tab.svg" color="#ffffff">
+  <meta name="application-name" content="Stanford University" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="//www-media.stanford.edu/assets/favicon/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="//www-media.stanford.edu/assets/favicon/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="//www-media.stanford.edu/assets/favicon/mstile-150x150.png" />
+  <meta name="msapplication-square310x310logo" content="//www-media.stanford.edu/assets/favicon/mstile-310x310.png" /> -->
+
+  <link rel="icon" href="./static/images/logo3.png">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KZEKLLQP31"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KZEKLLQP31');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://kit.fontawesome.com/19914a84eb.js" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  
+  <style>
+    .hidden_videos {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<section class="hero is-link video" style="position:relative; height: 56.25vw; min-height: 100vh;">
+  <div class="hero-video" style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 100%; width: 177.77777778vh; min-width: 100%;">
+    <video playsinline autoplay muted loop preload="auto" poster="./static/images/metis_teaser.jpg" style="width: 100%; height: 100%; object-position: center center; object-fit: cover;">
+      <source src="./static/videos/metis_final.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+    style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 100%; width: 100%;">
+    <video playsinline autoplay muted loop preload="auto" poster="./static/images/metis_teaser.jpg" style="width: 100%; height: 100%; object-position: center center; object-fit: cover;">
+      <source src="./static/videos/metis_final.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="overlay"></div>
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head is-hidden-mobile">
+    <header class="navbar">
+      <div class="container is-size-5">
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item pl-4 pr-4" href="./static/pdf/metis.pdf" target="_blank">
+              <span class="icon" style="margin-right:5px;">
+                <img src="./static/images/pdf.svg" alt="PDF" />
+              </span>
+              <span>Paper</span>
+            </a>
+            <a class="navbar-item  pl-4 pr-4" href="./static/pdf/metis.pdf" target="_blank">
+              <span class="icon" style="margin-right:5px;">
+                <img src="./static/images/arxiv.svg" alt="ArXiv" />
+              </span>
+              <span>arXiv</span>
+            </a>
+            <span class="navbar-item  pl-4 pr-4" style="cursor: not-allowed; opacity: 0.6;">
+              <!-- <span class="button is-inverted is-large" style="cursor: not-allowed; opacity: 0.6;"> -->
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code (Coming Soon)</span>
+              <!-- </span> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+
+      <div class="column has-text-centered is-hidden-tablet" style="margin-top: 0px;">
+        <div class="publication-links">
+          <!-- PDF Link. -->
+          <span class="link-block">
+            <a href="./static/pdf/metis.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+              <span class="icon">
+                <img src="./static/images/pdf.svg" alt="PDF" />
+              </span>
+              <span>Paper</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="./static/pdf/metis.pdf" target="_blank">
+              <span class="icon">
+                <img src="./static/images/arxiv.svg" alt="ArXiv" />
+              </span>
+              <span>arXiv</span>
+            </a>
+          </span>
+          <!-- Code Link. -->
+          <span class="link-block">
+            <span class="external-link button is-normal is-rounded is-dark" style="cursor: not-allowed; opacity: 0.6;">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Code (Coming Soon)</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <!-- <div class="hero-foot is-hidden-mobile">
+    <nav class="tabs is-boxed is-fullwidth is-size-4">
+      <ul>
+        <li><a href="#agile-skills">Agile Whole-Body Skills</a></li>
+        <li><a href="#before-after-asap"></a>Before/After ASAP Fine-tuning</a></li>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#method">Method</a></li>
+      </ul>
+    </nav>
+  </div> -->
+</section>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- <h1 class="title is-1 publication-title">METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model</h1> -->
+          <div class="title-with-logo">
+            <img src="./static/images/logo3.png" alt="Logo" class="title-logo">
+            <h1 class="title is-1 publication-title">
+              METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model
+            </h1>
+          </div>
+          <div class="is-size-4 publication-authors">
+            <span class="author-block" style="font-size: 95%;">
+              <a href="https://github.com/AureleoPKU">Yankai Fu</a><sup>1,2*</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Ning Chen</a><sup>1,2*</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Junkai Zhao</a><sup>2*†</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Shaozhe Shan</a><sup>1</sup>&nbsp;&nbsp;
+              <span class="desktop-br"><br></span>
+              <a href="https://github.com/AureleoPKU">Guocai Yao</a><sup>2</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Pengwei Wang</a><sup>2</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Zhongyuan Wang</a><sup>2</sup>&nbsp;&nbsp;
+              <a href="https://github.com/AureleoPKU">Shanghang Zhang</a><sup>1,2✉</sup>&nbsp;&nbsp;
+            </span>
+          </div>
+          <div class="is-size-4 publication-authors">
+            <span class="author-block" style="font-size: 95%;">
+              <sup>1</sup>State Key Laboratory of Multimedia Information Processing, School of Computer Science, Peking University;
+              <span class="desktop-br"><br></span>
+              <sup>2</sup>Beijing Academy of Artificial Intelligence&nbsp;&nbsp;
+            </span>
+          </div>
+          <div class="is-size-4 publication-authors" style="margin-top: 10px;">
+            <span class="author-block" style="font-size: 90%; font-style: italic;">
+              <sup>*</sup> Co-first authors&nbsp;&nbsp;&nbsp;&nbsp;
+              <sup>†</sup> Project leader&nbsp;&nbsp;&nbsp;&nbsp;
+              <sup>✉</sup> Corresponding author
+            </span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./static/pdf/metis.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>PDF</span>
+                </a>
+              </span>
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" href="./static/pdf/metis.pdf" target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <span class="external-link button is-normal is-rounded is-dark" style="cursor: not-allowed; opacity: 0.6;">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                </span>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="margin-top: 2rem !important;">
+  <div class="container">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <h2 class="title is-2 section-title-accent">Abstract</h2>
+        <div class="columns is-centered">
+          <div class="column is-four-fifth">
+            <img src="./static/images/teaser.png" alt="Method Overview" style="width: 100%;" />
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Building a generalist robot that can perceive, reason, and act across diverse tasks remains an open challenge, especially for dexterous manipulation. A major bottleneck lies in the scarcity of large-scale, action-annotated data for dexterous skills, as teleoperation is difficult and costly. Human data, with its vast scale and diverse manipulation behaviors, provides rich priors for learning robotic actions. While prior works have explored leveraging human demonstrations, they are often constrained by limited scenarios and a large visual gap between human and robots. To eliminate these limitations, we propose METIS, a vision-language-action (VLA) model for dexterous manipulation pretrained on multi-source egocentric datasets. We first construct EgoAtlas, which integrates large-scale human and robotic data from multiple sources, all unified under a consistent action space. We further extract motion-aware dynamics, a compact and discretized motion representation, which provides efficient and expressive supervision for VLA training. Built upon them, METIS integrates reasoning and acting into a unified framework, enabling effective deployment to downstream dexterous manipulation tasks. Our method demonstrates exceptional dexterous manipulation capabilities, achieving highest average success rate in six real-world tasks. Experimental results also highlight the superior generalization and robustness to out-of-distribution scenarios. These findings emphasize METIS as a promising step toward a generalist model for dexterous manipulation.
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teleoperation Section -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div style="text-align: center;">
+          <h2 class="title is-2 section-title-accent">EgoAtlas</h2>
+        </div>
+        
+        <!-- Video Teleoperation -->
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Multi-Source Egocentric Manipulation Dataset</h3>
+        <div style="margin-top: 1.5rem; margin-bottom: 2em;">
+          <div style="max-width: 800px; margin: 0 auto; padding: 20px 40px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left: 5px solid #f59d38; border-radius: 8px; box-shadow: 0 2px 8px rgba(118, 185, 0, 0.15); text-align: center;">
+            <span style="font-size: 1.3rem; font-weight: 600; color: #2c3e50; letter-spacing: 0.5px;">
+              <i class="fas fa-rocket" style="color: #f59d38; margin-right: 10px;"></i>
+              We first construct EgoAtlas, which integrates large-scale human and robotic data from multiple sources, all unified under a consistent action space.
+            </span>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">EgoDex</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/egodex.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">H2O</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/h2o.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">ARCTIC</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/arctic.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">HoloAssist</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/holoassist.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">OakInk</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/oakink.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">PH2D-Human</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/ph2d_human.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Self-collected</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/egoatlas.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">ActionNet</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/fourier.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">PH2D-Robot</h4>
+            <video class="uniform-video" muted loop playsinline controls src="./static/videos/human_demo/ph2d_robot.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br><br>
+        <br>
+      </div>
+      <!-- </div> -->
+      <br><br>
+    </div>
+  </div>
+  <!-- VR Teleoperation with Keypoints -->
+  <div class="column is-full-width">
+    <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Unified Action Space</h3>
+    <div style="margin-top: 1.5rem; margin-bottom: 2em;">
+      <div style="max-width: 800px; margin: 0 auto; padding: 20px 40px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left: 5px solid #f59d38; border-radius: 8px; box-shadow: 0 2px 8px rgba(118, 185, 0, 0.15); text-align: center;">
+        <span style="font-size: 1.3rem; font-weight: 600; color: #2c3e50; letter-spacing: 0.5px;">
+          <i class="fas fa-rocket" style="color: #f59d38; margin-right: 10px;"></i>
+          we construct a unified action space that bridges the gap between human and robot motion representations. 
+        </span>
+      </div>
+    </div>
+
+  </div>
+  <div class="columns is-centered">
+  <div class="column is-two-thirds">
+    <div class="columns is-centered">
+      <div class="column is-4 is-flex is-align-items-center">
+        <video class="uniform-video-4-3" muted loop playsinline controls src="./static/videos/human_demo/h2o.mp4" width="100%" style="border-radius:10px;"></video>
+      </div>
+      <div class="column is-8">
+        <iframe src="./static/videos/human_demo/h2o.html" width="100%" height="600px" frameborder="0" scrolling="no"></iframe>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-4 is-flex is-align-items-center">
+        <video class="uniform-video-4-3" muted loop playsinline controls src="./static/videos/human_demo/fourier.mp4" width="100%" style="border-radius:10px;"></video>
+      </div>
+      <div class="column is-8">
+        <iframe src="./static/videos/human_demo/fourier.html" width="100%" height="600px" frameborder="0" scrolling="no"></iframe>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<!-- Multi-Modal Control Section -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div style="text-align: center;">
+          <h2 class="title is-2 section-title-accent">Robot Demos (4X)</h2>
+        </div>
+        <div style="margin-top: 1.5rem; margin-bottom: 2em;">
+          <div style="max-width: 800px; margin: 0 auto; padding: 20px 40px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left: 5px solid #f59d38; border-radius: 8px; box-shadow: 0 2px 8px rgba(118, 185, 0, 0.15); text-align: center;">
+            <span style="font-size: 1.3rem; font-weight: 600; color: #2c3e50; letter-spacing: 0.5px;">
+              <i class="fas fa-rocket" style="color: #f59d38; margin-right: 10px;"></i>
+              Policy performs inference on the server and communicates with the hardware, which inevitably introduces communication delay.
+            </span>
+          </div>
+        </div>
+        <!-- Music Control -->
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Short Horizon Tasks</h3>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Pick and Place</h4>
+            <video muted loop playsinline controls playsinline controls preload="metadata" src="./static/videos/short-horizon/pick_place_the_apple2(1).mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Close Laptop</h4>
+            <video muted loop playsinline controls playsinline controls preload="metadata" src="./static/videos/short-horizon/close_laptop.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Open Drawer</h4>
+            <video muted loop playsinline controls playsinline controls preload="metadata" src="./static/videos/short-horizon/open_drawer.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- Long Horizon Tasks -->
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Long Horizon Tasks</h3>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Grasp Two Drinks into Basket</h4>
+            <video muted loop playsinline controls src="./static/videos/long-horizon/grasp_two_drinks_into_basket.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Put Cola into Basket</h4>
+            <video muted loop playsinline controls src="./static/videos/long-horizon/put_the_cola_into_the_basket.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Open Drawer and Put Bread</h4>
+            <video muted loop playsinline controls src="./static/videos/long-horizon/open_drawer_and_put_bread.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+
+        <!-- Instruction Following -->
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Instruction Following</h3>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Grasp the <span style="color: red;">red apple</span> on the plate</h4>
+            <video muted loop playsinline controls src="./static/videos/instruction_following/instruction_following_apple.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Grasp the <span style="color: green;">green lemon</span> on the plate</h4>
+            <video muted loop playsinline controls src="./static/videos/instruction_following/instruction_following_lemon.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Grasp the <span style="color: orange;">yellow orange</span> on the plate</h4>
+            <video muted loop playsinline controls src="./static/videos/instruction_following/instruction_following_orange.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+
+        <!-- Generalization -->
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;">Generalization</h3>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Unseen background</h4>
+            <video muted loop playsinline controls src="./static/videos/generalization/generalization_background.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Unseen lighting condition</h4>
+            <video muted loop playsinline controls src="./static/videos/generalization/generalization_lighting.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br>
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Unseen object</h4>
+            <video muted loop playsinline controls src="./static/videos/generalization/generalization_object.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+          <div class="column">
+            <h4 class="title is-4" style="text-align: center; margin-bottom: 10px;">Cluttered scene</h4>
+            <video muted loop playsinline controls src="./static/videos/generalization/generalization_cluttered.mp4" width="100%" style="border-radius:10px;"></video>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="text-align: center;">
+      <h2 class="title is-2 section-title-accent">Method</h2>
+    </div>
+    
+    <div class="grid-item">
+      <div class="columns is-centered">
+        <!-- <div class="column is-full-width"> -->
+        <div class="item-image">
+          <!-- <img src="./static/images/method.png" alt="Method Overview" style="width: 100%;" /> -->
+           <img src="./static/images/method.png" alt="Method Overview" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" class="lazy-image">
+        </div>
+        <!-- </div> -->
+      </div>
+      <h3 class="item-title">METIS Method</h3>
+      <p class="item-description">We propose motion-aware dynamics, a compact and discretized representation designed for dexterous manipulation. It captures both visual and motion dynamics, providing efficient and expressive supervision for training VLA models. Built upon them, <b><tt>METIS</tt></b> is pretrained on EgoAtlas, unifying reasoning and acting within a single framework.</p>
+    </div>
+  </div>
+</section>
+
+<section class="Experiments">
+  <div class="container">
+    <div style="text-align: center;">
+      <h2 class="title is-2 section-title-accent">Experiments</h2>
+    </div>
+
+    <div class="grid-item">
+      <div class="columns is-centered">
+        <div class="item-image">
+          <img src="./static/images/experiments.png" alt="experiments" style="width: 100%;" />
+        </div>
+      </div>
+      <h3 class="item-title">METIS Performance</h3>
+      <p class="item-description"><b><tt>METIS</tt></b> demonstrates exceptional dexterous manipulation capabilities, achieving highest average success rate in six real-world tasks. Experimental results also highlight the superior generalization and robustness to out-of-distribution scenarios.</p>
+    </div>
+  </div>
+</section>
+
+
+    <section class="section" id="BibTeX">
+      <div class="container content">
+        <h2 class="titile">BibTeX</h2>
+        <pre><code>
+@article{fu2025metis,
+    title={METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model},
+    author={Fu, Yankai and Chen, Ning and Zhao, Junkai and Shan, Shaozhe and Yao, Guocai and Wang, Pengwei and Wang, Zhongyuan and Zhang, Shanghang},
+    journal={arXiv preprint arXiv:2511.xxxxx},
+    year={2025}
+}</code></pre>
+      </div>
+    </section>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>Page template borrowed from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a> and <a href="https://nvlabs.github.io/SONIC/"><span class="dnerf">SONIC</span></a>.</p>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all videos except the hero background videos, trailer videos, and music videos
+      var allVideos = document.querySelectorAll('video');
+      var heroVideos = document.querySelectorAll('.hero-video video');
+      var trailerVideos = document.querySelectorAll('.trailer-video');
+      var musicVideos = document.querySelectorAll('.music-video');
+      
+      // Filter out hero videos, trailer videos, and music videos - hero videos always play, others never auto-play
+      var contentVideos = Array.from(allVideos).filter(function(video) {
+        return !Array.from(heroVideos).includes(video) && 
+               !Array.from(trailerVideos).includes(video) && 
+               !Array.from(musicVideos).includes(video);
+      });
+      
+      function pauseVideo(video) {
+        video.classList.add("hidden_videos");
+        // video.setAttribute('preload', 'none');
+        // video.removeAttribute("autoplay");
+        video.pause();
+      }
+      
+      function playVideo(video) {
+        if (video.paused) {
+          video.classList.remove("hidden_videos");
+          // video.setAttribute("autoplay", "");
+          // video.removeAttribute("preload");
+          video.play().catch(function(error) {
+            // Handle autoplay errors silently
+            console.log("Autoplay prevented:", error);
+          });
+        }
+      }
+
+      function isElementPartiallyInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.bottom >= 0 &&
+          rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+          rect.right >= 0
+        );
+      }
+
+      function controlInViewVideos() {
+        contentVideos.forEach(function(video) {
+          if (isElementPartiallyInViewport(video)) {
+            // playVideo(video);
+          } else {
+            pauseVideo(video);
+          }
+        });
+      }
+
+      // Initial check
+      controlInViewVideos();
+
+      // Check on scroll
+      window.addEventListener("scroll", function() {
+        controlInViewVideos();
+      });
+
+      // Use IntersectionObserver for better performance
+      var objOptions = {
+        threshold: 0.1,
+        rootMargin: "0px"
+      };
+
+      var videoObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var video = entry.target;
+          if (entry.isIntersecting) {
+            playVideo(video);
+          } else {
+            pauseVideo(video);
+          }
+        });
+      }, objOptions);
+
+      // Observe each content video
+      contentVideos.forEach(function(video) {
+        videoObserver.observe(video);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

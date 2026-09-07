@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal homepage of Yankai Fu, a Master student at Peking University.">
+    <meta name="color-scheme" content="light dark">
+    <title>Yankai Fu | Peking University</title>
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script>
+      (() => {
+        let savedTheme = null;
+        try {
+          savedTheme = localStorage.getItem("theme");
+        } catch {
+          savedTheme = null;
+        }
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      })();
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --text: #595959;
+        --muted: #828282;
+        --strong: #222222;
+        --heading: #2f174f;
+        --link: #2f174f;
+        --link-hover: #1f0f35;
+        --rule: #e5e5e5;
+        --soft: #f7f5fa;
+        --representative-bg: #ffffdc;
+        --accent: #8f7caf;
+        --danger: #d33f32;
+        --image-bg: #ffffff;
+        --teaser-frame: #ded8e9;
+        --teaser-bg: #f8fafc;
+        --floating-bg: rgba(255, 255, 255, 0.9);
+        --shadow: 0 6px 18px rgba(47, 23, 79, 0.14);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #120c1d;
+        --text: #d8d2df;
+        --muted: #a89cb8;
+        --strong: #f4efff;
+        --heading: #d7c4ff;
+        --link: #d7c4ff;
+        --link-hover: #ffffff;
+        --rule: #352747;
+        --soft: #21162f;
+        --representative-bg: rgba(255, 224, 102, 0.12);
+        --accent: #9f8bc4;
+        --danger: #ff8a80;
+        --image-bg: #ffffff;
+        --teaser-frame: #4a385f;
+        --teaser-bg: #1b1228;
+        --floating-bg: rgba(18, 12, 29, 0.88);
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 18px/1.5 "Crimson Pro", Georgia, serif;
+        font-weight: 400;
+        transition: background-color 0.18s ease, color 0.18s ease;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus {
+        color: var(--link-hover);
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      strong {
+        color: var(--strong);
+        font-weight: 600;
+      }
+
+      p,
+      ul,
+      ol,
+      table,
+      pre,
+      dl {
+        margin: 0 0 20px;
+      }
+
+      ul {
+        padding-left: 1.2em;
+      }
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: var(--heading);
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin: 0 0 16px;
+      }
+
+      h2 {
+        font-size: 29px;
+        margin: 2px 0 15px;
+      }
+
+      h3 {
+        font-size: 22px;
+        margin: 28px 0 12px;
+      }
+
+      h4 {
+        font-size: 19px;
+        margin: 0 0 8px;
+      }
+
+      .wrapper {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 690px);
+        gap: 70px;
+        width: min(100%, 1040px);
+        margin: 0 auto;
+        padding: 64px 24px 72px;
+      }
+
+      header {
+        position: sticky;
+        top: 52px;
+        align-self: start;
+        text-align: center;
+        -webkit-font-smoothing: subpixel-antialiased;
+      }
+
+      .avatar {
+        display: inline-block;
+        width: 145px;
+        height: 145px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .name {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        min-height: 1.15em;
+        cursor: default;
+        text-align: center;
+      }
+
+      .name span {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        transition: opacity 0.2s ease;
+      }
+
+      .name .cn {
+        opacity: 0;
+        font-family: "KaiTi", "Kaiti SC", "STKaiti", serif;
+      }
+
+      .name:hover .en {
+        opacity: 0;
+      }
+
+      .name:hover .cn {
+        opacity: 1;
+      }
+
+      .profile-line {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 1.08rem;
+      }
+
+      email {
+        display: inline-block;
+        margin-top: 6px;
+        font-family: "Ubuntu Mono", ui-monospace, monospace;
+        font-size: 14px;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 24px 0 18px;
+      }
+
+      .social-icons a,
+      .social-icons .wechat-trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        color: var(--heading);
+        font-size: 1.12rem;
+        transition: color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+      }
+
+      .social-icons .wechat-trigger {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .social-icons a:hover,
+      .social-icons .wechat-trigger:hover,
+      .social-icons .wechat-trigger:focus-visible {
+        background: var(--soft);
+        color: var(--link-hover);
+        transform: translateY(-1px) scale(1.08);
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+
+      .wechat-modal[hidden] {
+        display: none;
+      }
+
+      .wechat-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: rgba(12, 8, 18, 0.72);
+        backdrop-filter: blur(4px);
+      }
+
+      .wechat-dialog {
+        position: relative;
+        padding: 10px;
+        border-radius: 14px;
+        background: #ffffff;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      .wechat-dialog img {
+        display: block;
+        width: auto;
+        max-width: min(82vw, 420px);
+        max-height: 82vh;
+        border-radius: 8px;
+      }
+
+      .wechat-close {
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        background: var(--heading);
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      }
+
+      .wechat-close:hover,
+      .wechat-close:focus-visible {
+        background: var(--link-hover);
+        transform: scale(1.06);
+      }
+
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 22px;
+        right: 26px;
+        z-index: 20;
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--rule);
+        border-radius: 50%;
+        background: var(--floating-bg);
+        color: var(--heading);
+        cursor: pointer;
+        font-size: 0.95rem;
+        line-height: 1;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+        transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+      }
+
+      .theme-toggle:hover {
+        background: var(--soft);
+        border-color: var(--accent);
+        color: var(--link-hover);
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle .sun-icon {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .moon-icon {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .sun-icon {
+        display: inline-block;
+      }
+
+      .site-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        margin-top: 0.5rem;
+        text-align: left;
+        font-size: 1rem;
+      }
+
+      .site-nav a {
+        color: inherit;
+        padding-left: 0.65rem;
+        border-left: 2px solid transparent;
+        transition: color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .site-nav a:hover {
+        color: var(--link-hover);
+        border-left-color: var(--accent);
+      }
+
+      .site-nav a.active {
+        border-left-color: var(--heading);
+        color: var(--heading);
+        font-weight: 600;
+      }
+
+      main {
+        min-width: 0;
+      }
+
+      section {
+        scroll-margin-top: 28px;
+      }
+
+      .intro strong {
+        color: var(--heading);
+      }
+
+      .news-list {
+        margin-bottom: 4px;
+      }
+
+      .news-list strong:first-child,
+      .news-more strong:first-child {
+        color: var(--strong);
+        white-space: nowrap;
+      }
+
+      .highlight-red {
+        color: var(--danger);
+        font-weight: 600;
+      }
+
+      details.news-more {
+        margin-top: -8px;
+        margin-bottom: 24px;
+      }
+
+      details.news-more > summary {
+        display: inline-block;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.95rem;
+        list-style: none;
+      }
+
+      details.news-more > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details.news-more > summary::before {
+        content: "\25B8";
+        margin-right: 0.4rem;
+      }
+
+      details.news-more[open] > summary::before {
+        content: "\25BE";
+      }
+
+      details.news-more > summary:hover {
+        color: var(--link-hover);
+      }
+
+      .year-index {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 8px 0 14px;
+        font-size: 0.9rem;
+      }
+
+      .year-index a {
+        display: inline-block;
+        padding: 0.12rem 0.6rem;
+        border: 1px solid var(--heading);
+        border-radius: 4px;
+        color: var(--heading);
+        line-height: 1.35;
+        white-space: nowrap;
+      }
+
+      .year-index a:hover {
+        background: var(--heading);
+        color: #ffffff;
+      }
+
+      .publications {
+        margin-top: 1rem;
+      }
+
+      .publications h3.year {
+        color: var(--muted);
+        border-top: 1px solid var(--rule);
+        margin: 26px 0 4px;
+        padding-top: 8px;
+        text-align: right;
+      }
+
+      .bibliography {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .bibliography li {
+        margin: 0 0 18px;
+      }
+
+      .bibliography li.representative {
+        padding: 10px;
+        border-radius: 8px;
+        background: var(--representative-bg);
+      }
+
+      .publication-legend {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.4;
+      }
+
+      .legend-highlight {
+        padding: 0 0.2em;
+        border-radius: 2px;
+        background: var(--representative-bg);
+      }
+
+      .pub-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .abbr {
+        position: relative;
+        flex: 0 0 210px;
+      }
+
+      .teaser,
+      .teaser-placeholder {
+        display: block;
+        width: 210px;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .teaser {
+        background: var(--image-bg);
+        object-fit: contain;
+      }
+
+      .teaser-placeholder {
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--teaser-frame);
+        background:
+          linear-gradient(135deg, rgba(47, 23, 79, 0.11), rgba(143, 124, 175, 0.22)),
+          var(--teaser-bg);
+        color: var(--heading);
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .badge {
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        display: inline-block;
+        padding: 0.2em 0.55em;
+        border-radius: 3px;
+        background: var(--heading);
+        color: #ffffff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1.1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+        white-space: nowrap;
+      }
+
+      .pub-content {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .publication-title {
+        margin-bottom: 3px;
+        color: var(--strong);
+        font-size: 1.02rem;
+        font-weight: 700;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+      }
+
+      .publication-authors,
+      .publication-venue,
+      .publication-note {
+        margin-bottom: 3px;
+        font-size: 0.96rem;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+      }
+
+      .publication-venue {
+        font-style: italic;
+      }
+
+      .publication-note {
+        color: var(--danger);
+        font-weight: 600;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 7px;
+      }
+
+      .btn {
+        display: inline-block;
+        border: 1px solid var(--strong);
+        border-radius: 3px;
+        padding: 0.08rem 0.5rem 0.12rem;
+        color: var(--strong);
+        font-size: 0.72rem;
+        line-height: 1.3;
+      }
+
+      .btn:hover {
+        border-color: var(--link-hover);
+        color: var(--link-hover);
+      }
+
+      .compact-list {
+        margin-top: -0.25rem;
+      }
+
+      footer {
+        margin-top: 36px;
+        padding-top: 18px;
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      @media (max-width: 960px) {
+        body {
+          padding: 15px;
+          word-wrap: break-word;
+        }
+
+        .theme-toggle {
+          top: 14px;
+          right: 14px;
+        }
+
+        .wrapper {
+          display: block;
+          width: auto;
+          padding: 0;
+        }
+
+        header {
+          position: static;
+          padding: 8px 0 18px;
+        }
+
+        .site-nav {
+          display: none;
+        }
+
+        main {
+          border: 1px solid var(--rule);
+          border-width: 1px 0;
+          padding: 20px 0;
+        }
+
+        .avatar {
+          width: 118px;
+          height: 118px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        body {
+          font-size: 17px;
+        }
+
+        h1 {
+          font-size: 28px;
+        }
+
+        h2 {
+          font-size: 26px;
+        }
+
+        .pub-row {
+          display: block;
+        }
+
+        .pub-content {
+          width: 100%;
+        }
+
+        .abbr {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        .teaser,
+        .teaser-placeholder {
+          width: min(100%, 340px);
+        }
+
+        .publications h3.year {
+          text-align: left;
+        }
+
+        .year-index a {
+          flex: 1 1 auto;
+          min-width: 90px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <i class="fa-solid fa-moon moon-icon" aria-hidden="true"></i>
+      <i class="fa-solid fa-sun sun-icon" aria-hidden="true"></i>
+    </button>
+
+    <div class="wrapper">
+      <header>
+        <a class="avatar" href="#about-me" aria-label="Yankai Fu homepage">
+          <img src="images/personal.jpg" alt="Portrait of Yankai Fu">
+        </a>
+
+        <h1 class="name">
+          <span class="en">Yankai Fu</span>
+          <span class="cn">傅彦凯</span>
+        </h1>
+
+        <span class="profile-line">Master Student in CS</span>
+        <a class="profile-line" href="https://www.pku.edu.cn/" target="_blank" rel="noopener noreferrer">Peking University</a>
+        <email>ykfu25@stu.pku.edu.cn</email>
+
+        <div class="social-icons" aria-label="Social links">
+          <a href="https://scholar.google.com/citations?user=NZSt0F8AAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
+            <i class="ai ai-google-scholar" aria-hidden="true"></i>
+          </a>
+          <a href="https://github.com/AureleoPKU" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+          </a>
+          <a href="https://x.com/YankaiF65122" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+          </a>
+          <button class="wechat-trigger" type="button" aria-label="Show WeChat QR code" title="WeChat">
+            <i class="fa-brands fa-weixin" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <nav class="site-nav" aria-label="Section navigation">
+          <a href="#about-me">About</a>
+          <a href="#research-interests">Research</a>
+          <a href="#news">News</a>
+          <a href="#publications">Publications</a>
+          <a href="#awards">Awards</a>
+          <a href="#education">Education</a>
+        </nav>
+      </header>
+
+      <main>
+        <section id="about-me">
+          <h2>About Me</h2>
+          <p class="intro">
+            Hi! I’m <strong>Yankai Fu (傅彦凯)</strong>, a second-year Master student in Computer Science at
+            <strong>Peking University</strong>, advised by <strong>Prof. Shanghang Zhang</strong>. My research focuses on building embodied AI systems that 
+            can interact with the physical world and achieve human-level dexterity.
+             Feel free to reach out if you’d like to chat.
+          </p>
+        </section>
+
+        <section id="research-interests">
+          <h2>Research Interests</h2>
+          <p>How can we build embodied AI systems with human-level physical intelligence?</p>
+          <ul>
+            <li><strong>Dexterous interaction:</strong> enabling embodied agents to perform precise, adaptive, and coordinated
+              physical interactions with human-level dexterity.</li>
+            <li><strong>Generalizable intelligence:</strong> developing systems that transfer across objects, tasks, environments,
+              and embodiments with minimal additional training.</li>
+            <li><strong>Physical reasoning:</strong> building actionable world models that capture geometry, contact,
+              dynamics, and affordances, connecting multimodal perception to planning
+              and physical action.</li>
+          </ul>
+        </section>
+
+        <section id="news">
+          <h2>News</h2>
+          <ul class="news-list">
+            <li><strong>[Sep 2026]</strong> <strong><a href="" target="_blank" rel="noopener noreferrer">DeCAL</a></strong> and <strong><a href="" target="_blank" rel="noopener noreferrer">LiMA</a></strong> are accepted to <strong>CoRL 2026</strong>.</li>
+            <li><strong>[Jul 2026]</strong> <strong><a href="https://arxiv.org/pdf/2607.24744" target="_blank" rel="noopener noreferrer">Data Pyramid for Embodied Manipulation</a></strong> is released, providing a comprehensive survey of data for embodied manipulation.</li>
+            <li><strong>[Jul 2026]</strong> <strong><a href="https://arxiv.org/pdf/2606.08737" target="_blank" rel="noopener noreferrer">Dream-Tac</a></strong> is accepted to <strong>ACM MM 2026</strong>.</li>
+            <li><strong>[Mar 2026]</strong> <strong><a href="https://arxiv.org/pdf/2602.23893" target="_blank" rel="noopener noreferrer">AoE</a></strong> is accepted to <strong>CVPR 2026 Workshop @ EmbodiedAIinLife</strong>.</li>
+            <li><strong>[Jan 2026]</strong> <strong><a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/24c3db3f35c770e07b2e95a3629f04d8-Paper-Conference.pdf" target="_blank" rel="noopener noreferrer">SpikePingpong</a></strong> is accepted to <strong>ICLR 2026</strong>.</li>
+            <li><strong>[Sep 2025]</strong> Joined <strong>Peking University</strong> as a Master student in Computer Science.</li>
+              <li><strong>[Jun 2025]</strong> <strong><a href="https://arxiv.org/pdf/2508.17230" target="_blank" rel="noopener noreferrer">FVP</a></strong> is accepted to <strong>ICCV 2025</strong>.</li>
+          </ul>
+
+          <details class="news-more">
+            <summary>Show more</summary>
+            <ul>
+              <li><strong>[Jun 2025]</strong> Graduated with a B.E. degree and selected as <strong class="highlight-red">Outstanding Undergraduate</strong>.</li>
+              <li><strong>[Apr 2025]</strong> <strong><a href="https://arxiv.org/pdf/2502.08449" target="_blank" rel="noopener noreferrer">CordViP</a></strong> and <strong><a href="https://arxiv.org/pdf/2412.13877" target="_blank" rel="noopener noreferrer">RoboMIND</a></strong> are accepted to <strong>RSS 2025</strong>.</li>
+              <li><strong>[Sep 2024]</strong> <strong><a href="https://arxiv.org/pdf/2410.10437" target="_blank" rel="noopener noreferrer">SIREN</a></strong> was accepted to <strong>S&P 2026</strong>.</li>
+              <li><strong>[Oct 2024]</strong> Honored with the <strong class="highlight-red">Lei Jun Outstanding Scholarship of Wuhan University</strong> (10/60k+, 100K RMB).</li>
+              <li><strong>[Mar 2024]</strong> <strong><a href="https://arxiv.org/pdf/2402.01348" target="_blank" rel="noopener noreferrer">CORE</a></strong> is accepted to <strong>CogSci 2024</strong> (<span class="highlight-red">Oral</span>).</li>
+              <li><strong>[Oct 2023]</strong> Awarded the <strong class="highlight-red">Lei Jun Scholarship for Computer Science Undergraduates</strong>.</li>
+              <li><strong>[Oct 2022]</strong> Awarded the <strong class="highlight-red">National Scholarship</strong> (top 0.2% nationally).</li>
+            </ul>
+          </details>
+        </section>
+
+        <section id="publications">
+          <h2>Publications</h2>
+          <div class="year-index" aria-label="Publication years">
+            <a href="#year-2026">2026 (5)</a>
+            <a href="#year-2025">2025 (8)</a>
+            <a href="#year-2024">2024 (3)</a>
+          </div>
+          <p class="publication-legend">
+            * and † indicate equal contribution and corresponding authorship, respectively. Representative works are <span class="legend-highlight">highlighted</span>.
+          </p>
+
+          <div class="publications">
+            <h3 class="year" id="year-2026">2026</h3>
+            <ol class="bibliography">
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/DeCAL.png" alt="DeCAL teaser" class="teaser">
+                    <abbr class="badge">CoRL</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="" target="_blank" rel="noopener noreferrer">DeCAL: Towards Physically-Grounded Dexterous Vision-Language-Action Models via Contact-Aware Latent Co-Imagination</a></div>
+                    <div class="publication-authors"><strong>Yankai Fu*</strong>, Ning Chen*, Junkai Zhao, Heng Zhang, Guocai Yao, Pengwei Wang, Zhongyuan Wang, Shanghang Zhang†</div>
+                    <div class="publication-venue">CoRL 2026</div>
+                    <div class="links">
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/LiMA.png" alt="LiMA teaser" class="teaser">
+                    <abbr class="badge">CoRL</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="" target="_blank" rel="noopener noreferrer">LiMA: Bridging Long-term Imagination to Real-time Dexterous Manipulation via Asynchronous Diffusion</a></div>
+                    <div class="publication-authors">Ning Chen*, <strong>Yankai Fu*</strong>, Junkai Zhao, Qianpu Sun, Guocai Yao, Pengwei Wang, Zhongyuan Wang, Shanghang Zhang†</div>
+                    <div class="publication-venue">CoRL 2026</div>
+                    <div class="links">
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/Data_Pyramid.png" alt="Data Pyramid for Embodied Manipulation survey teaser" class="teaser">
+                    <abbr class="badge">New</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2607.21655" target="_blank" rel="noopener noreferrer">Data Pyramid for Embodied Manipulation: A Survey</a></div>
+                    <div class="publication-authors">Yifan Ye*, <strong>Yankai Fu*</strong>, Yaoxu Lv*, Bohan Hou*, Jun Cen*, Lingdong Kong*, Duo Zheng, Tianxing Chen, Jiaming Liu, Ziang Cao, Yunfan Lou, Wei Chow, Xian Sun, Yingshuo Wang, Kuangzhi Ge, Xiaowei Chi, Xidong Zhang, Zhibo Pang, Yiwu Zhong, Sirui Han, Zhihe Lu, Weihao Yuan, Qifeng Chen, Michael Yu Wang, Yao Mu, Ziwei Liu, Jianfei Yang, Ping Luo, Shanghang Zhang†</div>
+                    <div class="publication-venue">arXiv preprint arXiv:2607.24744</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2607.24744" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://jasper-aaa.github.io/embodied-data-pyramid/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/worldbench/awesome-embodied-data-pyramid" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/Dream-Tac.png" alt="Dream-Tac teaser" class="teaser">
+                    <abbr class="badge">ACM MM</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2606.08737" target="_blank" rel="noopener noreferrer">Dream-Tac: A Unified Tactile World Action Model for Contact-Rich Robot Manipulation</a></div>
+                    <div class="publication-authors">Yunfan Lou*, Yifan Ye*, <strong>Yankai Fu*</strong>, Jun Cen, Xiaowei Chi, Yaoxu Lyu, Peidong Jia, Sirui Han, Zhihe Lu, Shanghang Zhang†</div>
+                    <div class="publication-venue">ACM MM 2026</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2606.08737" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a class="btn" href="https://github.com/LYFCLOUDFAN/Dream-Tac" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/AoE.png" alt="AoE teaser" class="teaser">
+                    <abbr class="badge">CVPR 2026 Workshop </abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2602.23893" target="_blank" rel="noopener noreferrer">AoE: Always-on egocentric human video collection for embodied AI</a></div>
+                    <div class="publication-authors">Bowen Yang*, Zishuo Li*, Yang Sun*, Changtao Miao*, Yifan Yang, Man Luo, Xiaotong Yan, Feng Jiang, Jinchuan Shi, <strong>Yankai Fu</strong>, Ning Chen, Junkai Zhao, Pengwei Wang, Guocai Yao, Shanghang Zhang, Hao Chen, Zhe Li, Kai Zhu†</div>
+                    <div class="publication-venue">CVPR 2026 Workshop @ EmbodiedAIinLife</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2602.23893" target="_blank" rel="noopener noreferrer">PDF</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+            <h3 class="year" id="year-2025">2025</h3>
+            <ol class="bibliography">
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/Robomind2.png" alt="Robomind2.0 teaser" class="teaser">
+                    <abbr class="badge">arXiv</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href=https://arxiv.org/pdf/2512.24653" target="_blank" rel="noopener noreferrer">Robomind 2.0: A multimodal, bimanual mobile manipulation dataset for generalizable embodied intelligence</a></div>
+                    <div class="publication-authors">Chengkai Hou*, Kun Wu*, Jiaming Liu*, Zhengping Che, Di Wu, Fei Liao, Guangrun Li, Jingyang He, Qiuxuan Feng, Zhao Jin, Chenyang Gu, Zhuoyang Liu, Nuowei Han, Xiangju Mi, Yaoxu Lv, <strong>Yankai Fu</strong>, Gaole Dai, Langzhe Gu, Tao Li, Yuheng Zhang, Yixue Zhang, Xinhua Wang, Shichao Fan, Meng Li, Zhen Zhao, Ning Liu, Zhiyuan Xu, Pei Ren, Junjie Ji, Haonan Liu, Kuan Cheng, Shanghang Zhang†, Jian Tang†</div>
+                    <div class="publication-venue">arXiv preprint arXiv:2512.24653</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2512.24653" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://modelscope.cn/datasets/X-Humanoid/RoboMIND2.0" target="_blank" rel="noopener noreferrer">Dataset</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/RoboCOIN.png" alt="RoboCOIN teaser" class="teaser">
+                    <abbr class="badge">arXiv</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2511.17441" target="_blank" rel="noopener noreferrer">RoboCOIN: An open-sourced bimanual robotic data collection for integrated manipulation</a></div>
+                    <div class="publication-authors">RoboCOIN Team</div>
+                    <div class="publication-venue">arXiv preprint arXiv:2511.17441</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2511.17441" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://flagopen.github.io/RoboCOIN/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/FlagOpen/RoboCOIN" target="_blank" rel="noopener noreferrer">Github</a>
+                      <a class="btn" href="https://huggingface.co/RoboCOIN" target="_blank" rel="noopener noreferrer">Dataset</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/METIS2.png" alt="METIS teaser" class="teaser">
+                    <abbr class="badge">arXiv</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2511.17366" target="_blank" rel="noopener noreferrer">METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model</a></div>
+                    <div class="publication-authors"><strong>Yankai Fu*</strong>, Ning Chen*, Junkai Zhao*, Shaozhe Shan, Guocai Yao, Pengwei Wang, Zhongyuan Wang, Shanghang Zhang†</div>
+                    <div class="publication-venue">arXiv preprint arXiv:2511.17441</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2511.17366" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://aureleopku.github.io/METIS/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/AureleoPKU/Metis" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/RoboOS-NeXT.png" alt="RoboOS-NeXT teaser" class="teaser">
+                    <abbr class="badge">arXiv</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2510.26536" target="_blank" rel="noopener noreferrer">RoboOS-NeXT: A Unified Memory-based Framework for Lifelong, Scalable, and Robust Multi-Robot Collaboration</a></div>
+                    <div class="publication-authors">Huajie Tan*, Cheng Chi*, Xiansheng Chen*, Yuheng Ji*, Zhongxia Zhao, Xiaoshuai Hao, Yaoxu Lyu, Mingyu Cao, Junkai Zhao, Huaihai Lyu, Enshen Zhou, Ning Chen, <strong>Yankai Fu</strong>, Cheng Peng, Wei Guo, Dong Liang, Zhuo Chen, Mengsi Lyu, Chenrui He, Yulong Ao, Yonghua Lin, Pengwei Wang, Zhongyuan Wang, Shanghang Zhang†</div>
+                    <div class="publication-venue">arXiv preprint arXiv:2510.26536</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2510.26536" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://flagopen.github.io/RoboOS/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/FlagOpen/RoboOS" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/FVP.png" alt="FVP teaser" class="teaser">
+                    <abbr class="badge">ICCV</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2508.17230" target="_blank" rel="noopener noreferrer">4D Visual Pre-training for Robot Learning</a></div>
+                    <div class="publication-authors">Chengkai Hou, Yanjie Ze, <strong>Yankai Fu</strong>, Zeyu Gao, Songbo Hu, Yue Yu, Shanghang Zhang, Huazhe Xu</div>
+                    <div class="publication-venue">ICCV 2025</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2508.17230" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://4d-visual-pretraining.github.io/" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/Robobrain2.png" alt="CAN teaser" class="teaser">
+                    <abbr class="badge">Technical Report</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2507.02029" target="_blank" rel="noopener noreferrer">RoboBrain 2.0 Technical Report</a></div>
+                    <div class="publication-authors">BAAI RoboBrain Team</div>
+                    <div class="publication-venue">Technical Report</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2507.02029" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://superrobobrain.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/FlagOpen/RoboBrain2.5" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/SpikePingpong.png" alt="SpikePingpong teaser" class="teaser">
+                    <abbr class="badge">ICLR</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/24c3db3f35c770e07b2e95a3629f04d8-Paper-Conference.pdf" target="_blank" rel="noopener noreferrer">SpikePingpong: Spike Vision-based Fast-Slow Pingpong Robot System</a></div>
+                    <div class="publication-authors">Hao Wang*, Chengkai Hou*, Xianglong Li*, <strong>Yankai Fu</strong>, Chenxuan Li, Ning Chen, Gaole Dai, Jiaming Liu, Tiejun Huang, Shanghang Zhang†</div>
+                    <div class="publication-venue">ICLR 2026</div>
+                    <div class="links">
+                      <a class="btn" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/24c3db3f35c770e07b2e95a3629f04d8-Paper-Conference.pdf" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="representative">
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/CordViP.png" alt="CordViP teaser" class="teaser">
+                    <abbr class="badge">RSS</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2502.08449" target="_blank" rel="noopener noreferrer">CordViP: Correspondence-based Visuomotor Policy for Dexterous Manipulation in Real-World</a></div>
+                    <div class="publication-authors"><strong>Yankai Fu*</strong>, Qiuxuan Feng*, Ning Chen*, Zichen Zhou, Mengzhen Liu, Mingdong Wu, Tianxing Chen, Shanyu Rong, Jiaming Liu, Hao Dong, Shanghang Zhang†</div>
+                    <div class="publication-venue">RSS 2025 (<span class="highlight-red">Oral</span>)</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2502.08449" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://aureleopku.github.io/CordViP/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/xuanxuanzzzii/cordvip" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+            </ol>
+
+            <h3 class="year" id="year-2024">2024</h3>
+            <ol class="bibliography">
+              
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/RoboMind.png" alt="RoboMind teaser" class="teaser">
+                    <abbr class="badge">RSS</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2412.13877" target="_blank" rel="noopener noreferrer">RoboMIND: Benchmark on Multi-embodiment Intelligence Normative Data for Robot Manipulation</a></div>
+                    <div class="publication-authors">RoboMind Team</div>
+                    <div class="publication-venue">RSS 2025 (<span class="highlight-red">Oral</span>)</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2412.13877" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://x-humanoid-robomind.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a>
+                      <a class="btn" href="https://github.com/x-humanoid-robomind/x-humanoid-robomind.github.io" target="_blank" rel="noopener noreferrer">Github</a>
+                      <a class="btn" href="https://huggingface.co/datasets/x-humanoid-robomind/RoboMIND" target="_blank" rel="noopener noreferrer">Dataset</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/SiREN.png" alt="SiREN teaser" class="teaser">
+                    <abbr class="badge">S&P</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/pdf/2410.10437" target="_blank" rel="noopener noreferrer">Towards Reliable Verification of Unauthorized Data Usage in Personalized Text-to-Image Diffusion Models</a></div>
+                    <div class="publication-authors">Boheng Li, Yanhao Wei, <strong>Yankai Fu</strong>, Zhenting Wang, Yiming Li†, Jie Zhang†, Run Wang, Tianwei Zhang</div>
+                    <div class="publication-venue">IEEE S&P 2025</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/pdf/2410.10437" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://github.com/AntigoneRandy/SIREN" target="_blank" rel="noopener noreferrer">Github</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="pub-row">
+                  <div class="abbr">
+                    <img src="images/paper/CORE.png" alt="CORE teaser" class="teaser">
+                    <abbr class="badge">CogSci</abbr>
+                  </div>
+                  <div class="pub-content">
+                    <div class="publication-title"><a href="https://arxiv.org/abs/2402.01348" target="_blank" rel="noopener noreferrer">CORE: Mitigating Catastrophic Forgetting in Continual Learning through Cognitive Replay</a></div>
+                    <div class="publication-authors">Jianshu Zhang*, <strong>Yankai Fu*</strong>, Ziheng Peng*, Dongyu Yao, Kun He</div>
+                    <div class="publication-venue">CogSci 2024 (<span class="highlight-red">Oral</span>)</div>
+                    <div class="links">
+                      <a class="btn" href="https://arxiv.org/abs/2402.01348" target="_blank" rel="noopener noreferrer">Paper</a>
+                      <a class="btn" href="https://github.com/sterzhang/CORE" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="awards">
+          <h2>Awards</h2>
+          <ul class="compact-list">
+            <li><strong>2025: Outstanding Graduate of Wuhan University</strong></li>
+            <li><strong>2024: Lei Jun Outstanding Scholarship of Wuhan University (Highest-level Scholarship, 10/60k+, 100k RMB)</strong></li>
+            <li><strong>2023: Lei Jun Scholarship for Computer Science Undergraduates (10K RMB)</strong></li>
+            <li><strong>2022: National Undergraduate Scholarship of Chinese Government (8K RMB)</strong></li>
+          </ul>
+        </section>
+
+        <section id="education">
+          <h2>Education</h2>
+          <ul class="compact-list">
+            <li><strong>Peking University</strong>, Master in Computer Science (2025-2028)</li>
+            <li><strong>Wuhan University</strong> (2021-2025)</li>
+            <li><strong>Zhejiang Zhoushan High School</strong> (2018-2021)</li>
+          </ul>
+        </section>
+
+        <footer>
+          <small>Inspired by the Minimal Light academic homepage style.</small>
+        </footer>
+      </main>
+    </div>
+
+    <div class="wechat-modal" role="dialog" aria-modal="true" aria-label="WeChat QR code" hidden>
+      <div class="wechat-dialog">
+        <button class="wechat-close" type="button" aria-label="Close WeChat QR code">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <img src="images/wechat.jpg" alt="WeChat QR code for Yankai Fu">
+      </div>
+    </div>
+
+    <script>
+      const themeToggle = document.querySelector(".theme-toggle");
+
+      const syncThemeToggle = () => {
+        const isDark = document.documentElement.dataset.theme === "dark";
+        themeToggle.setAttribute("aria-pressed", String(isDark));
+        themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+        themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+      };
+
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = nextTheme;
+        try {
+          localStorage.setItem("theme", nextTheme);
+        } catch {}
+        syncThemeToggle();
+      });
+
+      syncThemeToggle();
+
+      const wechatTrigger = document.querySelector(".wechat-trigger");
+      const wechatModal = document.querySelector(".wechat-modal");
+      const wechatClose = document.querySelector(".wechat-close");
+      let lastFocusedElement = null;
+
+      const openWechatModal = () => {
+        lastFocusedElement = document.activeElement;
+        wechatModal.hidden = false;
+        document.body.classList.add("modal-open");
+        wechatClose.focus();
+      };
+
+      const closeWechatModal = () => {
+        wechatModal.hidden = true;
+        document.body.classList.remove("modal-open");
+        lastFocusedElement?.focus();
+      };
+
+      wechatTrigger.addEventListener("click", openWechatModal);
+      wechatClose.addEventListener("click", closeWechatModal);
+
+      wechatModal.addEventListener("click", (event) => {
+        if (event.target === wechatModal) closeWechatModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !wechatModal.hidden) closeWechatModal();
+      });
+
+      const navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+      const sections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+            if (!visible) return;
+
+            navLinks.forEach((link) => {
+              link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`);
+            });
+          },
+          { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.25, 0.5, 0.75] }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="DeCAL is a physically-grounded dexterous vision-language-action model for contact-rich manipulation."
+    />
+    <meta
+      name="keywords"
+      content="robotics, dexterous manipulation, vision-language-action, tactile sensing"
+    />
+    <title>DeCAL — Contact-Aware Dexterous VLA</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/index.js" defer></script>
+  </head>
+
+  <body>
+    <header class="site-header" data-header>
+      <div class="nav-wrap">
+        <a class="brand" href="#home" aria-label="DeCAL home">
+          <img class="brand-logo" src="assets/figure/logo.png" alt="DeCAL" width="289" height="75" />
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+          <a href="#abstract">Abstract</a>
+          <a href="#method">Method</a>
+          <a href="#experiments">Experiments</a>
+          <a href="#generalization">Generalization</a>
+          <a href="#citation">Citation</a>
+          <a class="nav-paper" href="assets/paper/DeCAL.pdf" target="_blank" rel="noreferrer">PDF ↗</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-shell" id="home">
+        <div class="hero-copy reveal">
+          <h1><span>DeCAL:</span> Towards Physically-Grounded Dexterous Vision-Language-Action Models via Contact-Aware Latent Co-Imagination</h1>
+          <p class="conference-line">CoRL 2026</p>
+
+          <div class="author-line" aria-label="Authors">
+            <span class="author-name"><a href="https://aureleopku.github.io/" target="_blank" rel="noopener noreferrer">Yankai Fu</a><sup>1,2*</sup>,</span>
+            <span class="author-name">Ning Chen<sup>1,2*</sup>,</span>
+            <span class="author-name">Junkai Zhao<sup>2&dagger;</sup>,</span>
+            <span class="author-name">Heng Zhang<sup>1</sup>,</span><br />
+            <span class="author-name">Guocai Yao<sup>2</sup>,</span>
+            <span class="author-name">Pengwei Wang<sup>2</sup>,</span>
+            <span class="author-name">Zhongyuan Wang<sup>2</sup>,</span>
+            <span class="author-name">Shanghang Zhang<sup>1,2&#9993;</sup></span>
+          </div>
+          <div class="affiliation-line" aria-label="Affiliations">
+            <sup>1</sup>State Key Laboratory of Multimedia Information Processing, School of Computer Science,<br />
+            Peking University; <sup>2</sup>Beijing Academy of Artificial Intelligence
+          </div>
+          <div class="affiliation-line" aria-label="Author contributions">
+            <sup>*</sup>Equal contribution, <sup>&dagger;</sup>Project leader, <sup>&#9993;</sup>Corresponding author
+          </div>
+
+          <div class="hero-links" aria-label="Project links">
+            <a class="button button-dark" href="assets/paper/DeCAL.pdf" target="_blank" rel="noreferrer">
+              <span>PDF</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button-dark" href="assets/paper/DeCAL.pdf" target="_blank" rel="noreferrer">
+              <span>Arxiv</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button-dark" href="https://github.com/AureleoPKU/DeCAL" target="_blank" rel="noreferrer">
+              <span>Code</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="video-frame reveal">
+          <div class="media-label"><span></span> Project video</div>
+          <video
+            class="hero-video"
+            src="assets/teaser.mp4"
+            poster="assets/teaser-poster.jpg"
+            controls
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="DeCAL project video"
+          ></video>
+        </div>
+      </section>
+
+      <section class="section-shell content-section" id="abstract">
+        <div class="section-heading reveal">
+          <h2>Abstract</h2>
+        </div>
+
+        <figure class="paper-figure abstract-figure reveal">
+          <img src="assets/figure/teaser.png" alt="Overview of DeCAL, its multimodal inputs, tasks, and results" loading="lazy" />
+        </figure>
+
+        <div class="abstract-grid reveal">
+          <div class="abstract-copy">
+            <p>
+              Dexterous manipulation involves contact-rich and fine-grained interactions with the physical world, posing significant challenges for existing vision-language-action models because of severe visual occlusions and complex contact dynamics. While recent work has incorporated tactile sensing into robotic manipulation, most approaches still rely on homogeneous multimodal fusion, without adaptive tactile integration or explicit modeling of physical dynamics.
+            </p>
+            <p>
+              We present <strong>DeCAL</strong>, a physically-grounded dexterous vision-language-action model that unifies understanding, imagination, and action generation. Built on a Mixture-of-Transformers architecture, DeCAL introduces <strong>Adaptive Visuo-Tactile Fusion</strong> to regulate tactile interaction through contact-aware gating, and <strong>Visuo-Tactile Latent Co-Imagination</strong> to jointly model future visual and tactile dynamics. Across six real-world tasks, DeCAL reaches a 71% average success rate and an 83.4% progress success rate, while maintaining strong out-of-distribution generalization.
+            </p>
+          </div>
+        </div>
+
+        <div class="abstract-stats reveal" aria-label="Headline results">
+          <div><strong>71%</strong><span>Average success rate</span></div>
+          <div><strong>83.4%</strong><span>Progress success rate</span></div>
+          <div><strong>0.27s</strong><span>Per action chunk</span></div>
+        </div>
+      </section>
+
+      <section class="method-section" id="method">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <h2>Method</h2>
+            <p class="section-lede">Three collaborative experts share knowledge through directional joint attention, turning touch and vision into physically-grounded action.</p>
+          </div>
+
+          <figure class="paper-figure pipeline-figure reveal">
+            <img src="assets/figure/pipeline.png" alt="DeCAL architecture with understanding, generation, and action experts" loading="lazy" />
+            <figcaption>Architecture overview: scene understanding, visuo-tactile dynamics foresight, and factorized action generation.</figcaption>
+          </figure>
+
+          <div class="pipeline-analysis reveal">
+            <p>DeCAL is built upon a MoT architecture that unifies scene understanding, visuo-tactile dynamics foresight, and action generation. The Action Expert employs Factorized Flow Matching to decouple arm and hand motion, enabling better coordination and dexterous manipulation.</p>
+          </div>
+
+          <div class="method-grid">
+            <article class="method-card reveal">
+              <h3>Collaborative MoT</h3>
+              <p>An Understanding Expert, a Generation Expert, and an Action Expert exchange information through asymmetric cross-modal joint attention. Later experts can attend to all preceding knowledge while keeping each capability specialized.</p>
+            </article>
+            <article class="method-card reveal">
+              <h3>Adaptive Visuo-Tactile Fusion</h3>
+              <p>Per-finger tactile deformation maps become local and global tokens. A contact-aware gate raises the contribution of tactile evidence during physical interaction and suppresses it when vision should dominate.</p>
+            </article>
+            <article class="method-card reveal">
+              <h3>Latent Co-Imagination</h3>
+              <p>The world-model expert predicts future visual and tactile latents, including force, deformation, and raw tactile signals. This forward-looking supervision embeds implicit physical dynamics into the policy.</p>
+            </article>
+            <article class="method-card reveal">
+              <h3>Factorized Flow Matching</h3>
+              <p>Arm and hand actions start from independent noise distributions, then are jointly processed for coordinated motion. Decoupling their dynamics preserves fine-grained hand control without losing bimanual coordination.</p>
+            </article>
+          </div>
+
+          <div class="system-panel reveal">
+            <div class="system-copy">
+              <h3>Built for contact-rich dexterity</h3>
+              <p>The real-world platform combines two 6-DoF UR5 arms, two 22-DoF SharpaWave hands, three Intel RealSense D435 cameras, and high-resolution vision-based tactile sensing on every fingertip.</p>
+              <ul class="input-list">
+                <li><span>RGB</span> Head and wrist camera views</li>
+                <li><span>Touch</span> Raw tactile images and deformation maps</li>
+                <li><span>Force</span> Per-finger 6-DoF force and torque</li>
+              </ul>
+            </div>
+            <figure>
+              <img src="assets/figure/robot_system.png" alt="Dual-arm dexterous robot system and teleoperation hardware" loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell content-section" id="experiments">
+        <div class="section-heading reveal">
+          <h2>Real-World Demos and Results</h2>
+          <p class="section-lede">Six contact-rich tasks, 100 demonstrations per task, and 20 real-world evaluation trials for every method.</p>
+        </div>
+
+        <figure class="paper-figure reveal">
+          <img src="assets/figure/tasks.png" alt="Six real-world tasks and tactile representation analysis" loading="lazy" />
+        </figure>
+
+        <div class="tsne-analysis reveal">
+          <p>We analyze the global tokens extracted by the tactile encoder using t-SNE. For each task, we sample frames from distinct contact phases, covering diverse interaction patterns such as twisting, insertion, and wiping. As shown in the figure above, the learned global tactile representations form clear clusters across different contact modes, indicating that the encoder captures meaningful and structured physical interaction patterns.</p>
+        </div>
+
+        <div class="demo-grid">
+          <article class="demo-card reveal">
+            <video src="assets/demo/wipe_the_vase_nosoud.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Wipe Vase demo"></video>
+            <div><h3>Wipe Vase</h3><strong>100% SR</strong></div>
+          </article>
+          <article class="demo-card reveal">
+            <video src="assets/demo/erase_whiteboard_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Erase Whiteboard demo"></video>
+            <div><h3>Erase Whiteboard</h3><strong>80% SR</strong></div>
+          </article>
+          <article class="demo-card reveal">
+            <video src="assets/demo/assemble_parts_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Assemble Parts demo"></video>
+            <div><h3>Assemble Parts</h3><strong>65% SR</strong></div>
+          </article>
+          <article class="demo-card reveal">
+            <video src="assets/demo/twist_cap_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Twist Cap demo"></video>
+            <div><h3>Twist Cap</h3><strong>80% SR</strong></div>
+          </article>
+          <article class="demo-card reveal">
+            <video src="assets/demo/pipetting_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Pipetting demo"></video>
+            <div><h3>Pipetting</h3><strong>60% SR</strong></div>
+          </article>
+          <article class="demo-card reveal">
+            <video src="assets/demo/screw_light_bulb_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Screw Light Bulb demo"></video>
+            <div><h3>Screw Light Bulb</h3><strong>40% SR</strong></div>
+          </article>
+        </div>
+
+        <div class="results-block reveal">
+          <div class="comparison-grid">
+            <div class="bar-chart" aria-label="Average success rate comparison">
+              <div class="bar-row"><span>GR00T N1.6</span><i><b style="--score: 32%"></b></i><strong>32</strong></div>
+              <div class="bar-row"><span>InternVLA-A1</span><i><b style="--score: 33%"></b></i><strong>33</strong></div>
+              <div class="bar-row"><span>ViTacFormer</span><i><b style="--score: 48%"></b></i><strong>48</strong></div>
+              <div class="bar-row"><span>DECO</span><i><b style="--score: 56%"></b></i><strong>56</strong></div>
+              <div class="bar-row is-ours"><span>DeCAL</span><i><b style="--score: 71%"></b></i><strong>71</strong></div>
+            </div>
+
+            <div class="result-cards">
+              <article><strong>+15.0</strong><span>Points over the strongest baseline</span></article>
+              <article><strong>20</strong><span>Evaluation trials per task</span></article>
+              <article><strong>6 × 100</strong><span>Demonstrations across six tasks</span></article>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <caption>Success rate (%) across six real-world tasks</caption>
+              <thead>
+                <tr>
+                  <th>Method</th><th>Wipe</th><th>Erase</th><th>Assemble</th><th>Twist</th><th>Pipetting</th><th>Screw</th><th>Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th>GR00T N1.6</th><td>30</td><td>50</td><td>30</td><td>10</td><td>60</td><td>10</td><td>32</td></tr>
+                <tr><th>InternVLA-A1</th><td>65</td><td>50</td><td>15</td><td>5</td><td>35</td><td>30</td><td>33</td></tr>
+                <tr><th>ViTacFormer</th><td>80</td><td>45</td><td>15</td><td>65</td><td>55</td><td>25</td><td>48</td></tr>
+                <tr><th>DECO</th><td>90</td><td>60</td><td>35</td><td>70</td><td>45</td><td>35</td><td>56</td></tr>
+                <tr class="ours-row"><th>DeCAL (Ours)</th><td>100</td><td>80</td><td>65</td><td>80</td><td>60</td><td>40</td><td>71</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="generalization-section" id="generalization">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <h2>Generalization</h2>
+            <p class="section-lede">DeCAL remains robust when the scene, illumination, or manipulated object moves beyond the training distribution.</p>
+          </div>
+
+          <div class="gen-grid">
+            <article class="gen-card reveal">
+              <video src="assets/demo/generalization/twist_cap_background_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Unseen background demo"></video>
+              <div><h3>Unseen background</h3><strong>60%</strong></div>
+            </article>
+            <article class="gen-card reveal">
+              <video src="assets/demo/generalization/twist_cap_cluttered_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Cluttered environment demo"></video>
+              <div><h3>Cluttered scene</h3><strong>70%</strong></div>
+            </article>
+            <article class="gen-card reveal">
+              <video src="assets/demo/generalization/twist_cap_lighting_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Unseen lighting demo"></video>
+              <div><h3>Unseen lighting</h3><strong>70%</strong></div>
+            </article>
+            <article class="gen-card reveal">
+              <video src="assets/demo/generalization/twist_cap_object_nosound.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Unseen object demo"></video>
+              <div><h3>Unseen object</h3><strong>75%</strong></div>
+            </article>
+          </div>
+
+          <div class="gen-results reveal">
+            <figure>
+              <img src="assets/figure/results_generalization.png" alt="Generalization success rates compared with ViTacFormer and DECO" loading="lazy" />
+            </figure>
+            <div>
+              <h3>Touch anchors the policy when appearance changes.</h3>
+              <p>DeCAL leads all evaluated baselines across background, clutter, lighting, and object shifts. Its largest margin appears on the unseen-object setting, where geometric and force cues become especially important.</p>
+              <ul>
+                <li><span>Background</span><strong>60%</strong></li>
+                <li><span>Cluttered</span><strong>70%</strong></li>
+                <li><span>Lighting</span><strong>70%</strong></li>
+                <li><span>Object</span><strong>75%</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gating-section" id="gating">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <h2>Adaptive Tactile Gating</h2>
+            <p class="section-lede">The contact-aware gate regulates when tactile evidence should influence the policy during dexterous interaction.</p>
+          </div>
+
+          <figure class="gate-figure reveal">
+            <img src="assets/figure/tactile_gate.png" alt="Tactile gate values over testing episodes for Assemble Parts and Twist Cap" loading="lazy" />
+          </figure>
+
+          <div class="gate-summary reveal">
+            <div class="gate-copy">
+              <h3>Contact activates tactile feedback.</h3>
+              <p>Across Assemble Parts and Twist Cap testing episodes, the gate remains low during non-contact motion, allowing visual observations to dominate. Once meaningful physical contact occurs, the gate value rises sharply and increases the contribution of tactile information to action generation.</p>
+              <p class="gate-note">With all other components enabled, removing tactile gating reduces success on both evaluated tasks.</p>
+            </div>
+
+            <div class="gate-ablation">
+              <table class="gate-table">
+                <caption>Ablation Results <span>(Success rate)</span></caption>
+                <thead>
+                  <tr><th>Task</th><th>Without gate</th><th>With gate</th><th>Gain</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th>Assemble Parts</th><td>50%</td><td class="with-gate">65%</td><td class="gate-gain">+15%</td></tr>
+                  <tr><th>Twist Cap</th><td>70%</td><td class="with-gate">80%</td><td class="gate-gain">+10%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="citation-section" id="citation">
+        <div class="section-shell citation-grid">
+          <div class="citation-copy reveal">
+            <h2>Citation</h2>
+          </div>
+
+          <div class="bibtex-card reveal">
+            <div class="bibtex-top">
+              <span>BibTeX</span>
+              <button type="button" data-copy-bibtex>Copy</button>
+            </div>
+            <pre><code id="bibtex">@article{fu2026decal,
+              title={DeCAL: Towards Physically-Grounded Dexterous Vision-Language-Action Models via Contact-Aware Latent Co-Imagination},
+              author={Yankai Fu, Ning Chen, Junkai Zhao, Heng Zhang, Pengwei Wang, Zhongyuan Wang, Shanghang Zhang},
+              journal={arXiv preprint},
+              year={2026}
+            }</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell">
+        <a class="brand footer-brand" href="#home">
+          <img class="brand-logo" src="assets/figure/logo.png" alt="DeCAL" width="289" height="75" />
+        </a>
+        <p>Physically-grounded dexterous manipulation through vision, language, action, and touch.</p>
+        <a href="#home">Back to top ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>
